@@ -8,8 +8,4 @@
     <ProjectReference Include="..\CustomerApp.Core.Entity\CustomerApp.Core.Entity.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ApplicationService\" />
-  </ItemGroup>
-
 </Project>
