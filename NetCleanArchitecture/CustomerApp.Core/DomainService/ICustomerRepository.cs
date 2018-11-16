@@ -14,7 +14,7 @@ namespace CustomerApp.Core.DomainService
 
         // Read Data
         Customer ReadById(int id);
-        List<Customer> ReadAll();
+        IEnumerable<Customer> ReadAll();
 
         // Update Data
         Customer Update(Customer customerUpdate);

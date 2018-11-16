@@ -19,7 +19,7 @@ namespace CustomerApp.Infrastructure.Static.Data.Repositories
 
         }
        
-        public List<Customer> ReadAll()
+        public IEnumerable<Customer> ReadAll()
         {
             return _customers;
         }

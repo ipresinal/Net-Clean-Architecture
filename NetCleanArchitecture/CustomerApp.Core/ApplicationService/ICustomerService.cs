@@ -36,6 +36,12 @@ namespace CustomerApp.Core.ApplicationService
         List<Customer> GetAllCustomers();
 
         /// <summary>
+        /// Read by First name
+        /// </summary>
+        /// <returns></returns>
+        List<Customer> GetAllByFirstName(string name);
+
+        /// <summary>
         /// Update
         /// </summary>
         /// <param name="customerToUpdate"></param>
