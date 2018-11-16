@@ -16,40 +16,40 @@ namespace CustomerApp.Core.ApplicationService
         Customer NewCustomer(string firstName, string lastName, string address);
 
         /// <summary>
-        /// Create
+        /// Create --> PUT
         /// </summary>
         /// <param name="cust"></param>
         /// <returns></returns>
         Customer CreateCustomer(Customer cust);
 
         /// <summary>
-        /// Read by Id
+        /// Read by Id   --> GET
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         Customer FindCustomerById(int id);
 
         /// <summary>
-        /// Read All
+        /// Read All --> GET
         /// </summary>
         /// <returns></returns>
         List<Customer> GetAllCustomers();
 
         /// <summary>
-        /// Read by First name
+        /// Read by First name  --> GET
         /// </summary>
         /// <returns></returns>
         List<Customer> GetAllByFirstName(string name);
 
         /// <summary>
-        /// Update
+        /// Update    --> PUT
         /// </summary>
         /// <param name="customerToUpdate"></param>
         /// <returns></returns>
         Customer UpdateCustomer(Customer customerToUpdate);
 
         /// <summary>
-        /// Delete
+        /// Delete -> Delete
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
