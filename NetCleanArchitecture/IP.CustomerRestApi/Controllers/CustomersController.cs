@@ -34,7 +34,7 @@ namespace IP.CustomerRestApi.Controllers
             return _customerService.FindCustomerByIdIncludeOrders(id);
         }
 
-        // POST api/Customers
+        // POST api/Customers  ---> CREATE JSON
         [HttpPost]
         public ActionResult<Customer> Post([FromBody] Customer customer)
         {
