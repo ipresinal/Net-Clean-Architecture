@@ -30,6 +30,13 @@ namespace CustomerApp.Core.ApplicationService
         Customer FindCustomerById(int id);
 
         /// <summary>
+        /// Read by Id   --> GET
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Customer FindCustomerByIdIncludeOrders(int id);
+
+        /// <summary>
         /// Read All --> GET
         /// </summary>
         /// <returns></returns>

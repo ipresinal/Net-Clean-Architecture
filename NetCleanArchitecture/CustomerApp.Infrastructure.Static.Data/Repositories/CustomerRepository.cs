@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using CustomerApp.Core.DomainService;
 using CustomerApp.Core.Entity;
@@ -8,32 +9,53 @@ namespace CustomerApp.Infrastructure.Static.Data.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {
-        private int id = 1;
-        private List<Customer> _customers = new List<Customer>();    
+        
+        public CustomerRepository()
+        {
+            if (FakeDB.Customers.Count >= 1) return;
+            var cust1 = new Customer()
+            {
+                Id = FakeDB.Id++,
+                FirstName = "Bob",
+                LastName = "Dylan",
+                Address = "BongoStreet 202"
+            };
+            FakeDB.Customers.Add(cust1);
+
+            var cust2 = new Customer()
+            {
+                Id = FakeDB.Id++,
+                FirstName = "Lars",
+                LastName = "Bilde",
+                Address = "Ostestrasse 202"
+            };
+            FakeDB.Customers.Add(cust2);
+        }
 
         public Customer Create(Customer customer)
         {
-            customer.Id = id++;
-            _customers.Add(customer);
+            customer.Id = FakeDB.Id++;
+            FakeDB.Customers.Add(customer);
             return customer;
 
         }
        
         public IEnumerable<Customer> ReadAll()
         {
-            return _customers;
+            return FakeDB.Customers;
         }
 
         public Customer ReadById(int id)
         {
-            foreach (var customer in _customers)
-            {
-                if (customer.Id == id)
+            return FakeDB.Customers.
+                Select(c => new Customer()
                 {
-                    return customer;
-                }
-            }
-            return null;
+                    Id = c.Id,
+                    FirstName = c.FirstName,
+                    Address = c.Address,
+                    LastName = c.LastName
+                }).
+                FirstOrDefault(c => c.Id == id);
         }
 
 
@@ -61,7 +83,7 @@ namespace CustomerApp.Infrastructure.Static.Data.Repositories
             var customerFound = ReadById(id);
             if (customerFound == null) return null;
 
-            _customers.Remove(customerFound);
+            FakeDB.Customers.Remove(customerFound);
             return customerFound;
         }
     }

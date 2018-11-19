@@ -9,43 +9,79 @@ namespace IP.CustomerRestApi.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private ICustomerService _customerService;
+        private readonly ICustomerService _customerService;
 
         public CustomersController(ICustomerService customerService)
         {
             _customerService = customerService;
         }
 
-        // GET api/values
+
+        // GET api/Customers  ---> READ ALL
         [HttpGet]
-        public ActionResult<List<Customer>> Get()
+        public ActionResult<IEnumerable<Customer>> Get()
         {
             return _customerService.GetAllCustomers();
         }
 
-        // GET api/values/5
+        // GET api/Customers/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public ActionResult<Customer> Get(int id)
         {
-            return "value";
+            if (id < 1) return BadRequest("Parameter Id must be greater than zero");
+            
+            //return  _customerService.FindCustomerById(id);
+            return _customerService.FindCustomerByIdIncludeOrders(id);
         }
 
-        // POST api/values
+        // POST api/Customers
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<Customer> Post([FromBody] Customer customer)
         {
+            if (string.IsNullOrEmpty(customer.FirstName))
+            {
+                return BadRequest("Firstname is required for creating customer");
+            }
+
+            if (string.IsNullOrEmpty(customer.LastName))
+            {
+                return BadRequest("LastName is required for creating customer");
+            }
+
+            //return StatusCode(500, "Horrible error CALL Tech Support");
+
+            return  _customerService.CreateCustomer(customer);
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/Customers/5
+        [HttpPut("{id}/{value}")]
+        public ActionResult<Customer> Put(int id, string value ,[FromBody] Customer customer)
         {
+            if (id < 1 ||  id != customer.Id)
+            {
+                return BadRequest("Parameter and customer Id must be the same");
+            }
+
+            return Ok(_customerService.UpdateCustomer(customer));
         }
 
-        // DELETE api/values/5
+        // DELETE api/Customers/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult<Customer> Delete(int id)
         {
+            if (id < 1)
+            {
+                return BadRequest("Parameter Id must be greater than zero");
+            }
+
+            var customer = _customerService.DeleteCustomer(id);
+
+            if (customer == null)
+            {
+                return StatusCode(404, "Did not find Customer with ID" + id);
+            }
+
+            return Ok($"Customer with ID: {id} was deleted");
         }
     }
 }
