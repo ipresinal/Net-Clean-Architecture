@@ -58,6 +58,11 @@ namespace CustomerApp.Infrastructure.Static.Data.Repositories
                 FirstOrDefault(c => c.Id == id);
         }
 
+        public Customer FindCustomerByIdIncludeOrders(int id)
+        {
+            throw new NotImplementedException();
+        }
+
 
         /// <summary>
         /// Remove later when we use UOW
@@ -86,5 +91,7 @@ namespace CustomerApp.Infrastructure.Static.Data.Repositories
             FakeDB.Customers.Remove(customerFound);
             return customerFound;
         }
+
+        
     }
 }

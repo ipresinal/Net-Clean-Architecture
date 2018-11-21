@@ -15,12 +15,13 @@ namespace CustomerApp.Core.DomainService
         // Read Data
         Customer ReadById(int id);
         IEnumerable<Customer> ReadAll();
+        Customer FindCustomerByIdIncludeOrders(int id);
 
         // Update Data
         Customer Update(Customer customerUpdate);
 
         // Delete Data
         Customer Delete(int id);
-
+        
     }
 }
