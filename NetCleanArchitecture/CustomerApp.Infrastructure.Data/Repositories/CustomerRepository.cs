@@ -16,8 +16,6 @@ namespace CustomerApp.Infrastructure.Data.Repositories
             _ctx = ctx;
         }
 
-
-
         public Customer Create(Customer customer)
         {
             /*customer.Id = FakeDB.Id++;
@@ -68,7 +66,11 @@ namespace CustomerApp.Infrastructure.Data.Repositories
 
         public Customer Delete(int id)
         {
-            throw new NotImplementedException();
+            var ordersToRemove = _ctx.Orders.Where(o => o.Customer.Id == id);
+            _ctx.RemoveRange(ordersToRemove);
+            var custRemoved = _ctx.Remove(new Customer() {Id = id}).Entity;
+            _ctx.SaveChanges();
+            return custRemoved;
         }
 
         
