@@ -13,6 +13,14 @@ namespace CustomerApp.Infrastructure.Data
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Customer)
+                .WithMany(c => c.Orders)
+                .OnDelete(DeleteBehavior.SetNull);
+        } 
+
         public DbSet<Customer> Customers { get; set; }
 
         public DbSet<Order> Orders { get; set; }    
