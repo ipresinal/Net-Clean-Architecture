@@ -46,7 +46,7 @@ namespace CustomerApp.Infrastructure.Data.Repositories
                     LastName = c.LastName
                 }).
                 FirstOrDefault(c => c.Id == id);  */
-
+            var changeTracker = _ctx.ChangeTracker.Entries<Customer>();
             return _ctx.Customers.FirstOrDefault(c => c.Id == id);
         }
 

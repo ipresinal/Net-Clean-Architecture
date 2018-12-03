@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using CustomerApp.Core.DomainService;
 using CustomerApp.Core.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace CustomerApp.Infrastructure.Data.Repositories
 {
@@ -18,12 +20,22 @@ namespace CustomerApp.Infrastructure.Data.Repositories
 
         public Order Create(Order order)
         {
-            throw new NotImplementedException();
+            var changeTracker = _ctx.ChangeTracker.Entries<Customer>();
+            if (order.Customer != null)
+            {
+                _ctx.Attach(order.Customer);
+            }
+          
+            var saved = _ctx.Orders.Add(order).Entity;
+            _ctx.SaveChanges();
+            return saved;
         }
 
         public Order Delete(int id)
         {
-            throw new NotImplementedException();
+            var removed = _ctx.Remove(new Order {Id = id}).Entity;
+            _ctx.SaveChanges();
+            return removed;
         }
 
         public IEnumerable<Order> ReadAll()
@@ -33,7 +45,8 @@ namespace CustomerApp.Infrastructure.Data.Repositories
 
         public Order ReadById(int id)
         {
-            throw new NotImplementedException();
+            return _ctx.Orders.Include(o => o.Customer)
+                .FirstOrDefault(o => o.Id == id);
         }
 
         public Order Update(Order OrderUpdate)
