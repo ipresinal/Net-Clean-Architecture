@@ -1,10 +1,9 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CustomerApp.Core.Entity;
 
 namespace CustomerApp.Core.ApplicationService
 {
-    public interface ICustomerService
+    public interface ICustomerPhxService
     {
         /// <summary>
         /// New Customer
@@ -13,55 +12,53 @@ namespace CustomerApp.Core.ApplicationService
         /// <param name="lastName"></param>
         /// <param name="address"></param>
         /// <returns></returns>
-        Customer NewCustomer(string firstName, string lastName, string address);
+        CustomerPhx NewCustomer(string firstName, string lastName, string address);
 
         /// <summary>
         /// Create --> PUT
         /// </summary>
         /// <param name="cust"></param>
         /// <returns></returns>
-        Customer CreateCustomer(Customer cust);
+        CustomerPhx CreateCustomer(Customer cust);
 
         /// <summary>
         /// Read by Id   --> GET
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Customer FindCustomerById(int id);
+        CustomerPhx FindCustomerById(string id);
 
         /// <summary>
         /// Read by Id   --> GET
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Customer FindCustomerByIdIncludeOrders(int id);
+        CustomerPhx FindCustomerByIdIncludeOrders(string id);
 
         /// <summary>
         /// Read All --> GET
         /// </summary>
         /// <returns></returns>
-        List<Customer> GetAllCustomers();
+        List<CustomerPhx> GetAllCustomers();
 
         /// <summary>
         /// Read by First name  --> GET
         /// </summary>
         /// <returns></returns>
-        List<Customer> GetAllByFirstName(string name);
+        List<CustomerPhx> GetAllByFirstName(string name);
 
         /// <summary>
         /// Update    --> PUT
         /// </summary>
         /// <param name="customerToUpdate"></param>
         /// <returns></returns>
-        Customer UpdateCustomer(Customer customerToUpdate);
+        CustomerPhx UpdateCustomer(CustomerPhx customerToUpdate);
 
         /// <summary>
         /// Delete -> Delete
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Customer DeleteCustomer(int id);
-
-
+        CustomerPhx DeleteCustomer(string id);
     }
 }

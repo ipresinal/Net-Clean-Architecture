@@ -36,9 +36,10 @@ namespace IP.CustomerRestApi
                 opt => opt.UseSqlite("Data source=customerApp.db")
             );
 
+          
 
             services.AddScoped<ICustomerRepository, CustomerRepository>();
-            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<ICustomerService,CustomerService>();
 
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IOrderService, OrderService>();
