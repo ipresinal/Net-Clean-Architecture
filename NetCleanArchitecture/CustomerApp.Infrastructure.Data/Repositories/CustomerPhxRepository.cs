@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using CustomerApp.Core.DomainService;
 using CustomerApp.Core.Entity;
+using CustomerApp.Infrastructure.Data.SqlHelper;
+using Microsoft.Extensions.Configuration;
 
 namespace CustomerApp.Infrastructure.Data.Repositories
 {
     public class CustomerPhxRepository : ICustomerPhxRepository
     {
+        string _connectionString;
 
-        public CustomerPhxRepository()
+
+        public CustomerPhxRepository(IDbSqlConnection conn)
         {
-            
+            _connectionString = conn.ConnectionString;
         }
 
 

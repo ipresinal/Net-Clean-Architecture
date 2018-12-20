@@ -1,0 +1,14 @@
+﻿@page
+@model Gav.RazorPages.Pages.Tags.ChacheTagModel
+@{
+    ViewData["Title"] = "ChacheTag";
+}
+
+<h2>ChacheTag</h2>
+
+<span>Sin cache: @DateTime.Now</span>
+<br />
+<cache expires-after="@TimeSpan.FromSeconds(5)">
+    Con cache: @DateTime.Now
+</cache>
+

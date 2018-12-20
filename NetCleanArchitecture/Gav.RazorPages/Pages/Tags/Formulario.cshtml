@@ -1,0 +1,83 @@
+﻿@page
+@model Gav.RazorPages.Pages.Tags.FormularioModel
+@{
+    ViewData["Title"] = "Formulario";
+}
+
+<h2>Formulario</h2>
+
+<h5>Con Token</h5>
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Persona.Nombre"></label>
+        <input asp-for="Persona.Nombre" />
+        <span asp-validation-for="Persona.Nombre" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Persona.Edad"></label>
+        <input asp-for="Persona.Edad" />
+        <span asp-validation-for="Persona.Edad" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Persona.Pais"></label>
+        <select asp-for="Persona.Pais" asp-items="Html.GetEnumSelectList<Models.Pais>()"></select>
+        <span asp-validation-for="Persona.Pais" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Persona.Pregunta"></label>
+        <select asp-for="Persona.Pregunta" asp-items="Model.PreguntasSeguridad">
+            <option value="">--Escoger--</option>
+        </select>
+        <span asp-validation-for="Persona.Pregunta" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Persona.Descripcion"></label>
+        <textarea asp-for="Persona.Descripcion"></textarea>
+        <span asp-validation-for="Persona.Descripcion" class="text-danger"></span>
+    </div>
+    <input type="submit" value="Enviar" asp-page-handler="conToken" />
+</form>
+
+
+<h5>Sin Token</h5>
+<!form method="post">
+    <div class="form-group">
+        <label asp-for="Persona.Nombre"></label>
+        <input asp-for="Persona.Nombre" />
+        <span asp-validation-for="Persona.Nombre" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Persona.Edad"></label>
+        <input asp-for="Persona.Edad" />
+        <span asp-validation-for="Persona.Edad" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Persona.Pais"></label>
+        <select asp-for="Persona.Pais" asp-items="Html.GetEnumSelectList<Models.Pais>()"></select>
+        <span asp-validation-for="Persona.Pais" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Persona.Pregunta"></label>
+        <select asp-for="Persona.Pregunta" asp-items="Model.PreguntasSeguridad">
+            <option value="">--Escoger--</option>
+        </select>
+        <span asp-validation-for="Persona.Pregunta" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Persona.Descripcion"></label>
+        <textarea asp-for="Persona.Descripcion"></textarea>
+        <span asp-validation-for="Persona.Descripcion" class="text-danger"></span>
+    </div>
+    <input type="submit" value="Enviar" asp-page-handler="conToken" />
+</!form>
+
+@section Scripts{ 
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

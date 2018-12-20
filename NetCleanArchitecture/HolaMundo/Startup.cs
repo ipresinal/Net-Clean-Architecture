@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using HolaMundo.Data;
 using HolaMundo.Models;
 using HolaMundo.Services;
+using CustomerApp.Infrastructure.Data.SqlHelper;
+
 
 namespace HolaMundo
 {
@@ -22,7 +24,7 @@ namespace HolaMundo
         }
 
         public IConfiguration Configuration { get; }
-
+              
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -35,7 +37,8 @@ namespace HolaMundo
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-            services.AddScoped<IRepositorioPais, PaisRepositorioEF>();
+            services.AddScoped<IRepositorioPais, PaisrepositorioEnMemoria>();
+            services.AddSingleton<IDbSqlConnection>(new DbSqlConnection(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc();
         }
@@ -44,8 +47,6 @@ namespace HolaMundo
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             //app.UseDeveloperExceptionPage();
-
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -66,7 +67,7 @@ namespace HolaMundo
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            });            
         }
     }
 }

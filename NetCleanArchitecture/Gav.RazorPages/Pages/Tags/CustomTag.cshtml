@@ -1,0 +1,16 @@
+﻿@page
+@model Gav.RazorPages.Pages.Tags.CustomTagModel
+@{
+    ViewData["Title"] = "CustomTag";
+    var Aprobado = true;
+}
+
+<h2>Personalizado</h2>
+
+<div Condition="Aprobado">
+    Usted ha sido aprobado :)
+</div>
+<div Condition="!Aprobado">
+    Usted ha sido rechazado :(
+</div>
+
