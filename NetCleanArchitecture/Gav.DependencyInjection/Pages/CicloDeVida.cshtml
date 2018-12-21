@@ -1,0 +1,52 @@
+﻿@page
+@model Gav.DependencyInjection.Pages.CicloDeVidaModel
+@{
+    ViewData["Title"] = "CicloDeVida";
+}
+
+<h3>Valores del Controlador</h3>
+
+<table>
+    <tbody>
+    <tr>
+        <td><strong>Transient: </strong></td>
+        <td>@Model.TransientDePagina</td>
+    </tr>
+    <tr>
+        <td><strong>Scoped:</strong></td>
+        <td>@Model.ScopedDePagina</td>
+    </tr>
+    <tr>
+        <td><strong>Singleton:</strong></td>
+        <td>@Model.SingletonDePagina</td>
+    </tr>
+    <tr>
+        <td><strong>Instancia Singleton:</strong></td>
+        <td>@Model.SingletonInstanceDePagina</td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>Valores del Servicio</h3>
+
+<table>
+    <tbody>
+    <tr>
+        <td><strong>Transient: </strong></td>
+        <td>@Model.TransientDelServicio</td>
+    </tr>
+    <tr>
+        <td><strong>Scoped:</strong></td>
+        <td>@Model.ScopedDelServicio</td>
+    </tr>
+    <tr>
+        <td><strong>Singleton:</strong></td>
+        <td>@Model.SingletonDelServicio</td>
+    </tr>
+    <tr>
+        <td><strong>Instancia Singleton:</strong></td>
+        <td>@Model.SingletonInstanceDelServicio</td>
+    </tr>
+    </tbody>
+</table>
+

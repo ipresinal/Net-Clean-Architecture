@@ -1,0 +1,21 @@
+﻿@page
+@model Gav.DependencyInjection.Pages.GrafoModel
+@{
+    ViewData["Title"] = "Grafo";
+}
+
+<h2>Grafo</h2>
+
+<p>
+    Crear el objeto pedido, y todos los objetos que requiere, y todos los objetos que esos objetos requieren, es
+    un concepto conocido como <strong>grafo del objeto</strong>. Del mismo modo, el conjunto de dependencias que deben ser resueltas
+    recibe el nombre de <strong>árbol de dependencias</strong> o <strong>grafo de dependencias</strong>.
+</p>
+
+<p>
+    Mensaje del servicio:@Model.MensajeDelServicio
+</p>
+
+@section Scripts{ 
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
