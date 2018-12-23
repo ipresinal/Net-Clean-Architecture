@@ -3,34 +3,22 @@ using Gav.EFCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Gav.EFCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181222221400_Instituciones")]
+    partial class Instituciones
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Gav.EFCore.Curso", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Nombre")
-                        .HasMaxLength(100);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cursos");
-                });
 
             modelBuilder.Entity("Gav.EFCore.Direccion", b =>
                 {
@@ -58,8 +46,6 @@ namespace Gav.EFCore.Migrations
 
                     b.Property<int>("Edad");
 
-                    b.Property<bool>("EstaBorrado");
-
                     b.Property<int>("InstitucionId");
 
                     b.Property<string>("Nombre");
@@ -69,21 +55,6 @@ namespace Gav.EFCore.Migrations
                     b.HasIndex("InstitucionId");
 
                     b.ToTable("Estudiantes");
-                });
-
-            modelBuilder.Entity("Gav.EFCore.EstudianteCurso", b =>
-                {
-                    b.Property<int>("CursoId");
-
-                    b.Property<int>("EstudianteId");
-
-                    b.Property<bool>("Activo");
-
-                    b.HasKey("CursoId", "EstudianteId");
-
-                    b.HasIndex("EstudianteId");
-
-                    b.ToTable("EstudiantesCursos");
                 });
 
             modelBuilder.Entity("Gav.EFCore.Institucion", b =>
@@ -112,19 +83,6 @@ namespace Gav.EFCore.Migrations
                     b.HasOne("Gav.EFCore.Institucion")
                         .WithMany("Estudiantes")
                         .HasForeignKey("InstitucionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Gav.EFCore.EstudianteCurso", b =>
-                {
-                    b.HasOne("Gav.EFCore.Curso", "Curso")
-                        .WithMany("EstudiantesCursos")
-                        .HasForeignKey("CursoId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Gav.EFCore.Estudiante", "Estudiante")
-                        .WithMany("EstudiantesCursos")
-                        .HasForeignKey("EstudianteId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
