@@ -14,6 +14,7 @@ namespace Gav.EFCore
         public DbSet<Institucion> Instituciones { get; set; }
         public DbSet<Curso> Cursos { get; set; }
         public DbSet<EstudianteCurso> EstudiantesCursos { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -31,9 +32,29 @@ namespace Gav.EFCore
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Agregamos una llve compuesta para tabla EstudiantesCursos
             modelBuilder.Entity<EstudianteCurso>().HasKey(x => new{x.CursoId, x.EstudianteId});
 
-            modelBuilder.Entity<EstudianteCurso>().HasQueryFilter(x => x.Activo == true);
+            // Filtro por tipo
+            //modelBuilder.Entity<EstudianteCurso>().HasQueryFilter(x => x.Activo == true);
+
+            // Table Splitting
+            modelBuilder.Entity<Estudiante>().HasOne(x => x.Detalles)
+                .WithOne(x => x.Estudiante)
+                .HasForeignKey<EstudianteDetalle>(x => x.Id);
+
+            modelBuilder.Entity<EstudianteDetalle>().ToTable("Estudiantes");
+
+            // Mapeo Flexible
+            modelBuilder.Entity<Estudiante>().Property(x => x.Apellido).HasField("_apellido");
+
+            modelBuilder.Entity<Customer>().ToTable("tblStorageLocation");
+            modelBuilder.Entity<Customer>().Property(c => c.CustomerId).HasColumnName("Code");
+            modelBuilder.Entity<Customer>().HasKey(c => c.CustomerId).HasName("PK_Code");
+            modelBuilder.Entity<Customer>().Property(c => c.Name).IsRequired();
+
+
+
         }
 
         public override int SaveChanges()

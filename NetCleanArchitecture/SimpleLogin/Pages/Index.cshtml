@@ -1,0 +1,23 @@
+﻿@page
+
+@using Microsoft.AspNetCore.Authentication
+
+@functions {
+    public async Task<IActionResult> OnPostAsync()
+    {
+        await HttpContext.SignOutAsync();
+        return RedirectToPage("Login");
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<body>
+    <h1>Welcome to your login-protected area!</h1>
+    <form method="post">
+        <input type="submit" value="Logout" />
+        @Html.AntiForgeryToken()
+    </form>
+</body>
+</html>

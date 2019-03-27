@@ -12,7 +12,18 @@ namespace Gav.EFCore
         {
             Console.WriteLine("Hello World!");
 
-            
+            using (var context = new ApplicationDbContext())
+            {
+                var customer = new Customer()
+                {
+                    CustomerId = "CDR00004",
+                    Name = "Customer 4",
+                    HasAccess = true
+                };
+
+                context.Customers.Add(customer);
+                context.SaveChanges();
+            }
             
 
             Console.WriteLine("Listo");
@@ -192,6 +203,53 @@ namespace Gav.EFCore
                     .Where(x => ApplicationDbContext.Cantidad_De_Cursos_Activos(x.Id) > 0).ToList();
             }
         }
+
+        static void TableSpliting()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                //var estudiante = new Estudiante();
+                //estudiante.Nombre = "Carlos";
+                //estudiante.Edad = 45;
+                //estudiante.EstaBorrado = false;
+                //estudiante.InstitucionId = 1;
+
+                //var detalle = new EstudianteDetalle();
+                //detalle.Becado = false;
+                //detalle.Carrera = "Lic. en Matematicas";
+                //detalle.CategoriaDePago = 1;
+
+                //estudiante.Detalles = detalle;
+
+                //context.Add(estudiante);
+                //context.SaveChanges();
+
+                context.Estudiantes.Include(x => x.Detalles).ToList();
+
+                // si no quieres usar table splitting utiliza select en el query
+
+
+            }
+        }
+
+        static void MapeoFlexible()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var estudiante = new Estudiante()
+                {
+                    Nombre = "Carlos",
+                    Edad = 56,
+                    EstaBorrado = false,
+                    InstitucionId = 1,
+                    Detalles = new EstudianteDetalle() { CategoriaDePago = 1, Becado = false },
+                    Apellido = "Carvajal"
+                };
+
+                context.Add(estudiante);
+                context.SaveChanges();
+            }
+        }
     }
 
     class Institucion
@@ -210,8 +268,22 @@ namespace Gav.EFCore
         public int Edad { get; set; }
         public int InstitucionId { get; set; }
         public bool EstaBorrado { get; set; }
+
+        private string _apellido;
+
+        public string Apellido { get { return _apellido; } set{ _apellido = value.ToUpper(); } }
         public Direccion Direccion { get; set; }
         public List<EstudianteCurso> EstudiantesCursos { get; set; }
+        public EstudianteDetalle Detalles { get; set; }
+    }
+
+    class EstudianteDetalle
+    {
+        public int Id { get; set; }
+        public bool Becado { get; set; }
+        public string Carrera { get; set; }
+        public int CategoriaDePago { get; set; }
+        public Estudiante Estudiante { get; set; }
     }
 
     class Direccion
@@ -236,5 +308,12 @@ namespace Gav.EFCore
         public bool Activo { get; set; }
         public Estudiante Estudiante { get; set; }
         public Curso Curso { get; set; }
+    }
+
+    class Customer
+    {
+        public string CustomerId { get; set; }
+        public string Name { get; set; }
+        public bool HasAccess { get; set; }
     }
 }

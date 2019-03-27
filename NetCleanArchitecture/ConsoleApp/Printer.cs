@@ -10,6 +10,7 @@ namespace ConsoleApp
 {
     public class Printer : IPrinter
     {
+        
 
         #region Comments
 

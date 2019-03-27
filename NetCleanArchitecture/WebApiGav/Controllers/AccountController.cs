@@ -83,7 +83,11 @@ namespace WebApiGav.Controllers
             {
                 new Claim(JwtRegisteredClaimNames.UniqueName, userInfo.Email),
                 new Claim("miValor", "Lo que yo quiera"),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim("Pais","Argentina"),
+                new Claim("Admin", "Y"),
+                new Claim("Customer","Test Customer"),
+                new Claim("Provider","Y")
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Llave_super_secreta"]));
